@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int mod=1e9+7;
+    long long int dfs(int n,int g,int k,vector<vector<int>> &dp){
+          if(g==0  && n==0){
+              return 1;
+          }
+          if(g==0 || n==0){
+             return 0;
+          }
+
+          if(dp[n][g]!=-1)  return dp[n][g];
+
+
+          long long int uniq=dfs(n-1,g-1,k,dp)*n;
+          long long int repeat=dfs(n,g-1,k,dp)*max(0,n-k);
+
+
+          return dp[n][g]= (uniq+repeat) % mod;
+    }
+    int numMusicPlaylists(int n, int goal, int k) {
+        vector<vector<int> > dp(n+1,vector<int> (goal+1,-1));
+
+        return dfs(n,goal,k,dp);
+    }
+};
