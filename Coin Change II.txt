@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int helper(vector<int>& coins,int index,int sum,vector<vector<int>> &dp,int N){
+        
+        if(index==N){
+            if(sum==0) return 1;
+            else return 0;
+        }
+        if(sum==0) return 1;
+        if(sum<0) return 0;
+        
+        if(dp[index][sum]!=-1){
+            return dp[index][sum];
+        }
+        
+        long long int take=0;
+        if(coins[index]<=sum){
+         take=helper(coins,index,sum-coins[index],dp,N);
+        }
+        
+        long long int nontake=helper(coins,index+1,sum,dp,N);
+        
+        return dp[index][sum]=take+nontake;
+        
+    }
+
+    int change(int sum, vector<int>& coins) {
+        int N=coins.size();
+        vector<vector<int>> dp(N+1,vector<int> (sum+1,-1));
+        return helper(coins,0,sum,dp,N);
+    }
+};
