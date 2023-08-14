@@ -1,0 +1,17 @@
+  vector<int> singleNumber(vector<int> nums) 
+    {
+        // Code here.
+       map<int,int> mp;
+        
+        for(auto a:nums){
+            mp[a]++;
+        }
+        
+         vector<int> ans;
+         
+         for(auto &a:mp){
+             if(a.second==1) ans.push_back(a.first);
+         }
+         
+         return ans;
+    }
